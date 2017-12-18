@@ -39,6 +39,10 @@ class Api::V1::CatsController < ApplicationController
   end
   
 private
+  
+  def json_response(object)
+    render json: object, status: :ok
+  end
 
   def cat_params
     params.permit(:name, :sex, :breed)

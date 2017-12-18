@@ -1,7 +1,12 @@
-Dogclass Api::V1::DogsController < ApplicationController
+class Api::V1::DogsController < ApplicationController
   
   def index
-    @dogs = Dog.all
+    breed = params[:breed]
+    if breed
+      @dogs = Dog.search_breed(breed)
+    else
+      @dogs = Dog.all
+    end
     json_response(@dogs)
   end
   
@@ -34,6 +39,10 @@ Dogclass Api::V1::DogsController < ApplicationController
   end
   
 private
+
+  def json_response(object)
+    render json: object, status: :ok
+  end
 
   def dog_params
     params.permit(:name, :sex, :breed)
