@@ -28,6 +28,11 @@ class Api::V1::CatsController < ApplicationController
     @cat.destroy
   end
   
+  def random
+   @cat = Cat.random
+   json_response(@cat)
+  end
+  
 private
 
   def cat_params
