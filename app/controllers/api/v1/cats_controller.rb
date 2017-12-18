@@ -1,7 +1,12 @@
 class Api::V1::CatsController < ApplicationController
   
   def index
-    @cats = Cat.all
+    breed = params[:breed]
+    if breed
+      @cats = Cat.search_breed(breed)
+    else
+      @cats = Cat.all
+    end
     json_response(@cats)
   end
   
