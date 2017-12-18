@@ -21,9 +21,10 @@ class Api::V1::CatsController < ApplicationController
   end
   
   def update
+    @cat = Cat.find(params[:id])
     if @cat.update!(cat_params)
       render status: 200, json: {
-        message: "This cat's info has been updated successfully."
+        message: "This cat has been updated successfully."
       }
     end
   end
@@ -40,10 +41,10 @@ class Api::V1::CatsController < ApplicationController
   
 private
   
-  def json_response(object)
-    render json: object, status: :ok
+  def json_response(object, status = :ok)
+    render json: object, status: status
   end
-
+  
   def cat_params
     params.permit(:name, :sex, :breed)
   end

@@ -21,9 +21,10 @@ class Api::V1::DogsController < ApplicationController
   end
   
   def update
+    @dog = Dog.find(params[:id])
     if @dog.update!(dog_params)
       render status: 200, json: {
-        message: "This dog's info has been updated successfully."
+        message: "This dog has been updated successfully."
       }
     end
   end
@@ -40,8 +41,8 @@ class Api::V1::DogsController < ApplicationController
   
 private
 
-  def json_response(object)
-    render json: object, status: :ok
+  def json_response(object, status = :ok)
+    render json: object, status: status
   end
 
   def dog_params
